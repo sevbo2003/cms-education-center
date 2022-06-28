@@ -1,0 +1,61 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block page_title %}{{page_title}}{% endblock page_title %}
+
+{% block content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">{{page_title}}</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="dtBasicExample" class="table table-striped table-with-nums table-bordered table-sm"
+                            cellspacing="0" width="100%">
+                            <thead>
+
+                                <tr>
+                                    <th>Vaqt</th>
+                                    <th>Umumiy tushum</th>
+                                    <th>O'qituvchilarga</th>
+                                    <th>Markazga</th>
+                                    <th>Batafsil</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in payment_dates %}
+                                {% if i.studentpayment_set.all.count != 0 %}
+                                <tr>
+                                    <td>
+                                        {{i.year}} {{i.month}}
+                                    </td>
+                                    <td>{{i.slug|get_student_payments}} SUM</td>
+                                    <td>
+                                        <small class="text-success mr-1">
+                                            {% widthratio i.slug|get_teachers_percentage 1 100 %}%
+                                        </small>
+                                        {{ i.slug|get_teachers_payments }} SUM
+                                    </td>
+                                    <td>{{i.slug|get_center_payments}} SUM</td>
+                                    <td>
+                                        <a href="#" class="text-muted">
+                                            <a href="{% url 'manage_profits_detail' i.slug %}">Batafsil</a>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

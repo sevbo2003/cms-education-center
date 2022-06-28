@@ -1,0 +1,62 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block page_title %}{{page_title}}{% endblock page_title %}
+
+{% block content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">{{page_title}}</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="dtBasicExample" class="table table-striped table-with-nums table-bordered table-sm" cellspacing="0"
+                            width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="th-sm">T/R</th>
+                                    <th class="th-sm">To'liq ismi</th>
+                                    <th class="th-sm">Email</th>
+                                    <th class="th-sm">Tel raqami</th>
+                                    <th class="th-sm">Guruhlari</th>
+                                    <th class="th-sm">Ishlash foizi</th>
+                                    <th class="th-sm">Avatar</th>
+                                    <th class="th-sm">Boshqarish</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for staff in allStaff %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{staff.last_name}} {{staff.first_name}}</td>
+                                    <td>{{staff.email}}</td>
+                                    <td>{{staff.get_number}}</td>
+                                    <td>{{staff.staff.get_subjects}}</td>
+                                    <td>{{ staff.staff.working_percentage }}</td>
+                                    <td>
+                                        {% if staff.profile_pic == ""  %}
+                                        No Image
+                                        {% else %}
+                                        <a href="{{staff.profile_pic}}">ko'rish</a>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'edit_staff' staff.staff.id %}" class="btn btn-primary">Tahrirlash</a> - 
+                                        <a href="{% url 'delete_staff' staff.staff.id %}" class="btn btn-danger" onclick="return confirm('O\'qituvchi rostan ham o\'chirilsinmi?')">O'chirish</a>
+                                    
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,96 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block page_title %}{{page_title}}{% endblock page_title %}
+
+{% block content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="callout callout-info">
+                    <h5><i class="fas fa-info"></i> Eslatma:</h5>
+                    Ushbu sahifadagi ma'lumotlar shu oy oxirigacha o'zgarib boradi!
+                </div>
+
+                <div class="invoice p-3 mb-3">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>
+                                <i class="fas fa-dollar-sign"></i> Guruhlar kesimi bo'yicha daromad
+                                <small class="float-right">Vaqt: {{ payment_date }}</small>
+                            </h4>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-12 table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Guruh</th>
+                                        <th>O'qituvchi</th>
+                                        <th>Foiz</th>
+                                        <th>Kurs narxi</th>
+                                        <th>Umumiy daromad</th>
+                                        <th>O'quv markaz uchun</th>
+                                        <th>O'qituvchi uchun</th>
+                                        <th>Batafsil</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for group in groups %}
+                                    <tr>
+                                        <td>{{group.name}}</td>
+                                        <td>{{group.staff.get_full_name}}</td>
+                                        <td>{{group.staff.working_percentage}}%</td>
+                                        <td>{{group.price}} SUM</td>
+                                        <td>{% get_total_group_profit payment_date.slug group.id %} SUM</td>
+                                        <td>{% get_total_group_center_profite payment_date.slug group.id group.staff.working_percentage %} SUM</td>
+                                        <td>{% get_total_group_teacher_profite payment_date.slug group.id group.staff.working_percentage %} SUM</td>
+                                        <td><small><a href="{% url 'subject_detail' group.id %}">batafsil</a></small></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-8">
+                        </div>
+
+                        <div class="col-4">
+                            <p class="lead">Hisobot {{payment_date}} uchun</p>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th style="width:50%">Umumiy daromad:</th>
+                                            <td>{{total_month_profit}} SUM</td>
+                                        </tr>
+                                        <tr>
+                                            <th>O'quv markazi uchun:</th>
+                                            <td>{{ payment_date.slug|get_center_payments }} SUM</td>
+                                        </tr>
+                                        <tr>
+                                            <th>O'qituvchilar uchun({{payment_date.slug|get_teachers_percentage2}}%):</th>
+                                            <td>{{ payment_date.slug|get_teachers_payments }} SUM</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

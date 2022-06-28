@@ -1,0 +1,283 @@
+{% load static %}
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    {% if request.user.user_type == '1' %}
+    <!-- Brand Logo -->
+    <a href="{% url 'admin_home' %}" class="brand-link">
+        <img src="{% static 'dist/img/AdminLTELogo.png' %} " alt="AdminLTE Logo"
+            class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Admin Panel</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="info">
+                <a class="d-block">{{user.email}}</a>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                <li class="nav-item">
+                    {% url 'admin_home' as admin_home %}
+                    <a href="{{admin_home}}" class="nav-link {% if admin_home == request.path %} active {% endif %}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Bosh menu
+
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    {% url 'add_staff' as add_staff %}
+                    <a href="{{add_staff}}" class="nav-link {% if add_staff == request.path %} active {% endif %}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            O'qituvchi qo'shish
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    {% url 'manage_staff' as manage_staff %}
+                    {% url 'edit_staff' staff_id as edit_staff %}
+                    <a href="{{manage_staff}}"
+                        class="nav-link {% if manage_staff == request.path or request.path == edit_staff %} active {% endif %}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            O'qituvchini boshqarish
+
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    {% url 'add_student' as add_student%}
+                    <a href="{{add_student}}" class="nav-link  {% if add_student == request.path %} active {% endif %}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            O'quvchi qo'shish
+
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    {% url 'manage_student_in_queue' as manage_student_in_queue%}
+                    <a href="{{manage_student_in_queue}}" class="nav-link  {% if manage_student_in_queue == request.path %} active {% endif %}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Darsga yozilganlar
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    {% url 'manage_student' as manage_student %}
+                    {% url 'edit_student' student_id as edit_student %}
+
+                    <a href="{{manage_student}}"
+                        class="nav-link  {% if edit_student == request.path or manage_student == request.path %} active {% endif %}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            O'quvchini boshqarish
+
+                        </p>
+                    </a>
+                </li>
+                </li>
+                <li class="nav-item">
+                    {% url 'add_subject' as add_subject %}
+                    <a href="{{add_subject}}" class="nav-link  {% if add_subject == request.path %} active {% endif %}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Guruh qo'shish
+
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    {% url 'manage_subject' as manage_subject %}
+                    {% url 'edit_subject' subject_id as edit_subject %}
+                    <a href="{{manage_subject}}"
+                        class="nav-link  {% if edit_subject == request.path or manage_subject == request.path %} active {% endif %}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Guruhlarni boshqarish
+
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    {% url 'add_session' as add_session %}
+                    <a href="{{add_session}}" class="nav-link  {% if add_session == request.path %} active {% endif %}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Dars vaqtini qo'shish
+
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    {% url 'manage_session' as manage_session %}
+                    {% url 'edit_session' session_id as edit_session %}
+                    <a href="{{manage_session}}"
+                        class="nav-link  {% if edit_session == request.path or manage_session == request.path %} active {% endif %}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Dars vaqtini boshqarish
+
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    {% url 'admin_view_attendance' as admin_view_attendance %}
+
+                <li class="nav-item">
+                    <a href="{{admin_view_attendance}}"
+                        class="nav-link  {% if admin_view_attendance == request.path %} active {% endif %}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Davomatni ko'rish
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    {% url 'all_payments' as all_payments %}
+                    <a href="{{all_payments}}" class="nav-link  {% if all_payments == request.path %} active {% endif %}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Barcha to'lovlar
+
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    {% url 'add_date' as add_date %}
+                    <a href="{{add_date}}" class="nav-link  {% if add_date == request.path %} active {% endif %}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Oylik davr qo'shish
+
+                        </p>
+                    </a>
+                </li>
+
+                {% elif request.user.user_type == '2' %}
+                <!-- Brand Logo -->
+                <a href="#" class="brand-link">
+                    <img src="{% static 'dist/img/AdminLTELogo.png' %} " alt="AdminLTE Logo"
+                        class="brand-image img-circle elevation-3" style="opacity: .8">
+                    <span class="brand-text font-weight-light">O'qituvchi Panel</span>
+                </a>
+
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- Sidebar user panel (optional) -->
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="info">
+                            <a class="d-block">{{ user.email}}</a>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Menu -->
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                            data-accordion="false">
+
+                            <li class="nav-item">
+                                {% url 'staff_home' as staff_home %}
+                                <a href="{{staff_home}}"
+                                    class="nav-link {% if staff_home == request.path %} active {% endif %}">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Bosh menu
+
+                                    </p>
+                                </a>
+                            </li>
+                            </li>
+                            <li class="nav-item">
+                                {% url 'staff_take_attendance' as staff_take_attendance %}
+                                <a href="{{staff_take_attendance}}"
+                                    class="nav-link {% if staff_take_attendance == request.path %} active {% endif %}">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Davomat olish
+
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                {% url 'staff_update_attendance' as staff_update_attendance %}
+                                <a href="{{staff_update_attendance}}"
+                                    class="nav-link {% if staff_update_attendance == request.path %} active {% endif %}">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Davomatni ko'rish/yangilash
+                                    </p>
+                                </a>
+                            </li>
+                            {% else %}
+                            <!-- Brand Logo -->
+                            <a href="" class="brand-link">
+
+                                <img src="{% static 'dist/img/AdminLTELogo.png' %} " alt="AdminLTE Logo"
+                                    class="brand-image img-circle elevation-3" style="opacity: .8">
+                                <span class="brand-text font-weight-light">Student Panel</span>
+                            </a>
+
+                            <!-- Sidebar -->
+                            <div class="sidebar">
+                                <!-- Sidebar user panel (optional) -->
+                                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                                    <div class="info">
+                                        <a href="#" class="d-block">{{user.email}}</a>
+                                    </div>
+                                </div>
+
+                                <!-- Sidebar Menu -->
+                                <nav class="mt-2">
+                                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                                        data-accordion="false">
+
+                                        <li class="nav-item">
+                                            {% url 'student_home' as student_home %}
+                                            <a href="{{student_home}}"
+                                                class="nav-link {% if student_home == request.path %} active {% endif %}">
+                                                <i class="nav-icon fas fa-th"></i>
+                                                <p>
+                                                    Bosh menu
+
+                                                </p>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            {% url 'student_view_attendance' as student_view_attendance %}
+                                            <a href="{{student_view_attendance}}"
+                                                class="nav-link {% if student_view_attendance == request.path %} active {% endif %}">
+                                                <i class="nav-icon fas fa-th"></i>
+                                                <p>Davomatni ko'rish</p>
+                                            </a>
+                                        </li>
+                                        {% endif %}
+
+
+
+                                        <li class="nav-item">
+                                            <a href="{% url 'user_logout' %}"
+                                                onclick="return confirm('Chiqishni xohlaysizmi.\n\nDavom etasizmi?')"
+                                                class="nav-link">
+                                                <i class="nav-icon fas fa-th"></i>
+                                                <p>
+                                                    Chiqish
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                <!-- /.sidebar-menu -->
+                            </div>
+                            <!-- /.sidebar -->
+</aside>

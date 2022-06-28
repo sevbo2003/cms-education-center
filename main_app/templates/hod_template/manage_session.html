@@ -1,0 +1,43 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block page_title %}{{page_title}}{% endblock page_title %}
+{% block content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">{{page_title}}</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="dtBasicExample" class="table table-striped table-with-nums table-bordered table-sm" cellspacing="0"
+                            width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="th-sm">T/R</th>
+                                    <th class="th-sm">Boshlanish vaqti</th>
+                                    <th class="th-sm">Tugash vaqti</th>
+                                    <th class="th-sm">Tahrirlash</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for session in sessions %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{session.start_year}}</td>
+                                    <td>{{session.end_year}}</td>
+                                    <td><a href="{% url 'edit_session' session.id %}" class="btn btn-primary">O'zgartirish</a> - <a href="{% url 'delete_session' session.id %}" onclick="return confirm('Rostdan ham o\'chirmoqchimisiz ?')" class="btn btn-danger">O'chirish</a> </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,56 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block page_title %}{{page_title}}{% endblock page_title %}
+
+{% block content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">{{page_title}}</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="dtBasicExample" class="table table-striped table-with-nums table-bordered table-sm" cellspacing="0"
+                            width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="th-sm">T/R</th>
+                                    <th class="th-sm">Guruh nomi</th>
+                                    <th class="th-sm">O'qituvchi</th>
+                                    <th class="th-sm">Kurs narxi</th>
+                                    <th class="th-sm">Darslar soni</th>
+                                    <th class="th-sm">O'quvchilar soni</th>
+                                    <th class="th-sm">Qo'shimcha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for subject in subjects %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{subject.name}}</td>
+                                    <td>{{subject.staff.admin}}</td>
+                                    <td style="width:100px;">{{subject.price}}</td>
+                                    <td>{{subject.lessons_per_month}}</td>
+                                    <td style="width:150px ;">{{subject|get_students_count}}</td>
+                                    <td style="width:305px;">
+                                        <a href="{% url 'subject_detail' subject.id %}" class="btn btn-info">batafsil</a> -
+                                        <a href="{% url 'edit_subject' subject.id %}" class="btn btn-primary">Tahrirlash</a> -
+                                        <a href="{% url 'delete_subject' subject.id %}" onclick="return confirm('Guruhni rostdan ham o\'chirmoqchimisiz ?')" class="btn btn-danger">O'chirish</a> 
+
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
